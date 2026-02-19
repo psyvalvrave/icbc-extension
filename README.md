@@ -34,7 +34,7 @@ The custom ICBC icon will now appear in your browser's toolbar!
 2. Fill out your **Driver's Licence Number**, **Issue Date**, and **Security Keyword**.
 3. Set your optional search parameters:
    * **Target Office:** (e.g., Burnaby)
-   * **Search From Date:** The earliest date you want to look for.
+   * **Search From Date:** The earliest date you want to look for, or leave blank for any.
    * **Days of Week:** Select specific days, or leave blank for any.
 4. Click **Save All Settings**.
 5. Click **Book Road test** to launch the ICBC portal. The extension will take over and automate the navigation!
