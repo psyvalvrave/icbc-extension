@@ -12,8 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Load saved data
   chrome.storage.local.get(
-    ['licenceNumber', 'issueDay', 'issueMonth', 'issueYear', 'keyword', 'targetLocation', 'searchDate', 'searchDays'],
+    ['licenceNumber', 'issueDay', 'issueMonth', 'issueYear', 'keyword', 'targetLocation', 'searchDate', 'searchDays', 'isExtensionEnabled'],
     (result) => {
+      // Toggle Switch (Defaults to ON if not set)
+      document.getElementById('enableExtension').checked = result.isExtensionEnabled !== false;
+
       if (result.licenceNumber) document.getElementById('licenceNumber').value = result.licenceNumber;
       if (result.issueDay) document.getElementById('issueDay').value = result.issueDay;
       if (result.issueMonth) document.getElementById('issueMonth').value = result.issueMonth;
@@ -38,6 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   );
 
+  // Instantly save the toggle state when clicked
+  document.getElementById('enableExtension').addEventListener('change', (e) => {
+    chrome.storage.local.set({ isExtensionEnabled: e.target.checked });
+  });
+
   // Save Settings Button
   document.getElementById('saveBtn').addEventListener('click', () => {
     const selectedDays = [];
@@ -53,7 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
       keyword: document.getElementById('keyword').value,
       targetLocation: document.getElementById('targetLocation').value,
       searchDate: document.getElementById('searchDate').value,
-      searchDays: selectedDays
+      searchDays: selectedDays,
+      isExtensionEnabled: document.getElementById('enableExtension').checked // Save toggle state here too just in case
     };
 
     chrome.storage.local.set(data, () => {
