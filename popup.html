@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body { width: 320px; padding: 15px; font-family: sans-serif; }
+    h2 { margin-top: 0; color: #003366; font-size: 18px; }
+    label { display: block; margin-top: 10px; font-size: 12px; font-weight: bold; }
+    input, select { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+    
+    .date-row { display: flex; gap: 5px; }
+    .date-row input, .date-row select { width: 33%; }
+
+    .optional-section { background-color: #f5f5f5; padding: 10px; border-radius: 5px; margin-top: 15px; border: 1px solid #e0e0e0; }
+    .day-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin-top: 5px; }
+    .day-grid label { margin-top: 0; font-weight: normal; display: flex; align-items: center; cursor: pointer; }
+    .day-grid input { width: auto; margin: 0 5px 0 0; cursor: pointer; }
+
+    /* --- NEW BUTTON STYLES --- */
+    .button-group {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px; /* Space between the two buttons */
+    }
+
+    button {
+      width: 100%; 
+      padding: 12px;
+      background-color: #208efb; /* ICBC Blue */
+      color: white; 
+      border: none; 
+      cursor: pointer; 
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 8px; /* Smooth corners */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover { 
+      background-color: #002244; /* Darker blue when hovering */
+    }
+
+    /* Styling for the ICBC icon inside the button */
+    .icbc-logo {
+      height: 18px;
+      margin-right: 8px;
+      /* Makes the dark blue logo white so it stands out against the blue button */
+      filter: brightness(0) invert(1); 
+    }
+
+    #status { margin-top: 10px; color: green; text-align: center; height: 16px; font-size: 13px; font-weight: bold;}
+  </style>
+</head>
+<body>
+
+  <h2>ICBC Auto-Filler</h2>
+
+  <label>Driver's Licence Number</label>
+  <input type="text" id="licenceNumber" placeholder="e.g. 1234567">
+
+  <label>Licence Issue Date (DD / MMM / YYYY)</label>
+  <div class="date-row">
+    <input type="number" id="issueDay" placeholder="DD" min="1" max="31">
+    <select id="issueMonth">
+      <option value="JAN">JAN</option><option value="FEB">FEB</option><option value="MAR">MAR</option>
+      <option value="APR">APR</option><option value="MAY">MAY</option><option value="JUN">JUN</option>
+      <option value="JUL">JUL</option><option value="AUG">AUG</option><option value="SEP">SEP</option>
+      <option value="OCT">OCT</option><option value="NOV">NOV</option><option value="DEC">DEC</option>
+    </select>
+    <input type="number" id="issueYear" placeholder="YYYY" min="2000" max="2030">
+  </div>
+
+  <label>Security Keyword</label>
+  <input type="password" id="keyword" placeholder="Your secret word">
+
+  <div class="optional-section">
+    <label>Target Office (e.g. Burnaby claim centre (Wayburne Drive))</label>
+    <input type="text" id="targetLocation" placeholder="Required for booking auto-search">
+
+    <label>Search From Date (Optional)</label>
+    <input type="date" id="searchDate">
+
+    <label>Days of Week (Optional - Leave blank for Any)</label>
+    <div class="day-grid">
+      <label><input type="checkbox" value="monday" class="day-cb"> Mon</label>
+      <label><input type="checkbox" value="tuesday" class="day-cb"> Tue</label>
+      <label><input type="checkbox" value="wednesday" class="day-cb"> Wed</label>
+      <label><input type="checkbox" value="thursday" class="day-cb"> Thu</label>
+      <label><input type="checkbox" value="friday" class="day-cb"> Fri</label>
+      <label><input type="checkbox" value="saturday" class="day-cb"> Sat</label>
+    </div>
+  </div>
+
+  <div class="button-group">
+    <button id="saveBtn">Save All Settings</button>
+    <button id="bookBtn">
+      <img src="https://onlinebusiness.icbc.com/webdeas-ui/assets/my-icbc.svg" class="icbc-logo" alt="ICBC Icon">
+      Go to Book Road test
+    </button>
+  </div>
+  
+  <div id="status"></div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
